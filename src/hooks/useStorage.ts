@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
-function getSavedValue(key: StorageKey, initialValue: any) {
+function getSavedValue(key: string, initialValue: any) {
     const rememberMe = localStorage.getItem('rememberMe') === 'true';
     const storage = rememberMe ? localStorage : sessionStorage;
-    const savedValue = JSON.parse(storage.getItem(key)!);
+    const savedValue = JSON.parse(storage.getItem(key));
 
     if (savedValue) return savedValue;
 
@@ -11,7 +11,7 @@ function getSavedValue(key: StorageKey, initialValue: any) {
     return initialValue;
 }
 
-const useStorage = (key: StorageKey, initialValue: any) => {
+const useStorage = (key: string, initialValue: any) => {
     const [value, setValue] = useState(() => {
         return getSavedValue(key, initialValue);
     });
@@ -19,12 +19,10 @@ const useStorage = (key: StorageKey, initialValue: any) => {
     useEffect(() => {
         const rememberMe = localStorage.getItem('rememberMe') === 'true';
         const storage = rememberMe ? localStorage : sessionStorage;
-        storage.setItem(key, JSON.stringify(value));
+        if (value) storage.setItem(key, JSON.stringify(value));
     }, [value, key]);
 
     return [value, setValue];
 }
 
 export default useStorage;
-
-export type StorageKey = 'rememberMe' | 'accessToken' | 'userId' | 'username';

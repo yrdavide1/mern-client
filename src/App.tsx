@@ -1,9 +1,9 @@
-import React from 'react';
-import 'primereact/resources/themes/saga-blue/theme.css';
+import React, { useEffect } from 'react';
+import 'primereact/resources/themes/viva-dark/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import Login from './components/login/Login';
 import Register from './components/register/Register';
@@ -16,16 +16,22 @@ import ProtectedRoute from './components/ProtectedRoute';
 // };
 
 const App = (): JSX.Element => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate('home');
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route 
           path='/home' 
           element={
-            <ProtectedRoute redirectPath='/'>
+            <ProtectedRoute redirectPath='/login'>
               <Home />
             </ProtectedRoute>
           }
