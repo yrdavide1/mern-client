@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import 'primereact/resources/themes/viva-dark/theme.css';
+// import 'primereact/resources/themes/viva-dark/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
