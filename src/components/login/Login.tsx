@@ -8,9 +8,10 @@ import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useStorage from "../../hooks/useStorage";
 import Typed from "typed.js";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = (): JSX.Element => {
     const imgLogoSrcs = [mongodbLogo, expressLogo, reactLogo, nodejsLogo];
@@ -26,35 +27,61 @@ const Login = (): JSX.Element => {
         setHidePassword(!hidePassword);
     };
 
-    const formSubmitHandler = async (e: FormEvent): Promise<void> => {
-        e.preventDefault();
+    const formSubmitHandler = (e: FormEvent): Promise<string> => {
+        return new Promise<string>(async (resolve, reject) => {
+            e.preventDefault();
 
-        if (username && password) {
-            const params = {
-                username,
-                password,
-            };
-
-            const response = await fetch("http://localhost:5002/login", {
-                method: "POST",
-                body: JSON.stringify(params),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            const json = await response.json();
-
-            if (json.accessToken) {
-                localStorage.setItem("rememberMe", rememberMe ? "true" : "false");
-                setUser(json);
-                setTimeout(() => {
-                    navigate("/home");
-                }, 100);
+            if (username && password) {
+                const params = {
+                    username,
+                    password,
+                };
+    
+                const response = await fetch("http://localhost:5002/login", {
+                    method: "POST",
+                    body: JSON.stringify(params),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+    
+                const json = await response.json();
+    
+                if (json.accessToken && response.status === 200) {
+                    localStorage.setItem("rememberMe", rememberMe ? "true" : "false");
+                    setUser(json);
+                    const containerEl = document.getElementById('container');
+                    containerEl.style.animation = 'bgAnimation 1s linear';
+                    resolve('Successfully logged in!');
+                    setTimeout(() => {
+                        navigate("/home");
+                    }, 1000);
+                } else {
+                    reject(json.message);
+                }
+            } else {
+                reject('Both fields are required!');
             }
-        } else {
-            // TODO: show error toast?
-        }
+        })
+    };
+
+    const login = (e: FormEvent) => {
+        toast.promise(
+            formSubmitHandler(e),
+            {
+                loading: 'Hold on a sec...',
+                success: (message) => message,
+                error: (err) => err,
+            }
+        )
+    }
+
+    const redirectToRegister = () => {
+        const containerEl = document.getElementById('container');
+        containerEl.style.animation = 'bgAnimation 1s linear';
+        setTimeout(() => {
+            navigate('/register');
+        }, 1000);
     };
 
     useEffect(() => {
@@ -72,7 +99,7 @@ const Login = (): JSX.Element => {
 
     return (
         <>
-            <div className="w-screen h-screen container">
+            <div className="w-screen h-screen container" id="container">
                 <div className="h-4rem w-full"></div>
                 <div className="flex align-items-center justify-content-center logo-container">
                     {imgLogoSrcs.map(l => <img id="logo" className="logo" src={l} key={l} alt="Logo"></img>)}
@@ -83,10 +110,10 @@ const Login = (): JSX.Element => {
                 </div>
                 <div className="h-3rem w-full"></div>
                 <div className="flex justify-content-center login-form-container">
-                    <Card className="login-card w-8">
+                    <Card className="w-6">
                         <form
                             className="flex flex-column login-form"
-                            onSubmit={formSubmitHandler}
+                            onSubmit={login}
                         >
                             <div className="flex flex-column gap-2">
                                 <label htmlFor="username">Username</label>
@@ -132,10 +159,11 @@ const Login = (): JSX.Element => {
                                 </label>
                             </div>
                             <div className="flex justify-content-end mt-3">
-                                <Button label="Submit" raised />
+                                <Button label="Login" raised />
+                                <Toaster position="top-left" />
                             </div>
                             <div className="flex justify-content-end mt-3">
-                                <Link to="/register">Don't have an account yet? Sign up!</Link>
+                                <a href="#!" onClick={(e) => {e.preventDefault(); redirectToRegister();}}>Don't have an account yet? Sign up now!</a>
                             </div>
                         </form>
                     </Card>

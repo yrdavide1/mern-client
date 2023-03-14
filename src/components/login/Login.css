@@ -1,8 +1,25 @@
+@keyframes bgAnimation {
+    0% {
+        background-size: 100%;
+    }
+    25% {
+        background-size: 125%;
+    }
+    50% {
+        background-size: 150%;
+    }
+    75% {
+        background-size: 175%;
+    }
+    100% {
+        background-size: 200%;
+    }
+}
+
 .container {
     background: url('../../assets/blob-viva-dark.svg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 20%;
 }
 
 @keyframes fade {
