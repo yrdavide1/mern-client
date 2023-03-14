@@ -78,7 +78,7 @@ const Login = (): JSX.Element => {
                     {imgLogoSrcs.map(l => <img id="logo" className="logo" src={l} key={l} alt="Logo"></img>)}
                 </div>
                 <div className="h-3rem w-full"></div>
-                <div className="flex align-items-center justify-content-center">
+                <div className="flex align-items-center justify-content-center h-2rem">
                     <span className="title" ref={el}></span>
                 </div>
                 <div className="h-3rem w-full"></div>
