@@ -1,31 +1,29 @@
-@keyframes react-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.left-container {
-    background-image: url('../../assets/waves-viva-dark.svg');
+.container {
+    background: url('../../assets/blob-viva-dark.svg');
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-position: 20%;
 }
 
-.left-container > .react-logo {
-    width: 10rem;
-    height: 10rem;
-    animation: react-logo-spin 20s infinite linear;
+@keyframes fade {
+    0% {
+        opacity: 0;
+        /* transform: translateX(-20vh); */
+    }
+    100% {
+        opacity: 1;
+        /* transform: translateX(0); */
+    }
 }
 
-.login-form-container {
-    background-color: var(--primary-color);
+.logo-container > .logo {
+    width: 5rem;
+    height: 5rem;
+    margin: 0 2vh;
+    animation: fade 3s linear;
 }
 
-.login-form-container > .login-card {
-
+.title {
+    font-size: 2rem;
+    font-weight: 600;
 }
