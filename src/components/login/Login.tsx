@@ -23,6 +23,19 @@ const Login = (): JSX.Element => {
     const [, setUser] = useStorage("user", null);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const typed = new Typed(el.current, {
+            strings: ['MERN Practice', 'LOGIN ^1500'],
+            typeSpeed: 100,
+            showCursor: false,
+            fadeOut: true
+        });
+
+        return () => {
+            typed.destroy();
+        }
+    }, []);
+
     const hidePasswordHandler = (): void => {
         setHidePassword(!hidePassword);
     };
@@ -73,7 +86,7 @@ const Login = (): JSX.Element => {
                 success: (message) => message,
                 error: (err) => err,
             }
-        )
+        );
     }
 
     const redirectToRegister = () => {
@@ -84,31 +97,18 @@ const Login = (): JSX.Element => {
         }, 1000);
     };
 
-    useEffect(() => {
-        const typed = new Typed(el.current, {
-            strings: ['MERN Practice', 'LOGIN'],
-            typeSpeed: 100,
-            showCursor: false,
-            fadeOut: true
-        });
-
-        return () => {
-            typed.destroy();
-        }
-    }, []);
-
     return (
         <>
             <div className="w-screen h-screen container" id="container">
-                <div className="h-4rem w-full"></div>
+                <div className="h-2rem w-full"></div>
                 <div className="flex align-items-center justify-content-center logo-container">
                     {imgLogoSrcs.map(l => <img id="logo" className="logo" src={l} key={l} alt="Logo"></img>)}
                 </div>
-                <div className="h-3rem w-full"></div>
+                <div className="h-2rem w-full"></div>
                 <div className="flex align-items-center justify-content-center h-2rem">
                     <span className="title" ref={el}></span>
                 </div>
-                <div className="h-3rem w-full"></div>
+                <div className="h-2rem w-full"></div>
                 <div className="flex justify-content-center login-form-container">
                     <Card className="w-6">
                         <form
@@ -160,7 +160,15 @@ const Login = (): JSX.Element => {
                             </div>
                             <div className="flex justify-content-end mt-3">
                                 <Button label="Login" raised />
-                                <Toaster position="top-left" />
+                                <Toaster
+                                    position="top-left"
+                                    toastOptions={{
+                                        style: {
+                                            backgroundColor: 'var(--primary-color)',
+                                            color: 'var(--surface-0)'
+                                        }
+                                    }}
+                                />
                             </div>
                             <div className="flex justify-content-end mt-3">
                                 <a href="#!" onClick={(e) => {e.preventDefault(); redirectToRegister();}}>Don't have an account yet? Sign up now!</a>
