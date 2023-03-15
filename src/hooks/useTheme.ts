@@ -9,7 +9,7 @@ const useTheme = (): [Theme, Dispatch<SetStateAction<Theme>>] => {
     });
 
     useEffect(() => {
-        if (theme) localStorage.setItem('theme', theme);
+        localStorage.setItem('theme', theme ? theme : 'light');
     }, [theme, setTheme]);
     
     return [theme, setTheme];

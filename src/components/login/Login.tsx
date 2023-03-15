@@ -13,7 +13,6 @@ import useStorage from "../../hooks/useStorage";
 import Typed from "typed.js";
 import toast, { Toaster } from "react-hot-toast";
 import ThemeSwitcher, { Theme } from "../theme-switcher/ThemeSwitcher";
-import useTheme from "../../hooks/useTheme";
 
 const Login = (): JSX.Element => {
     const imgLogoSrcs = [mongodbLogo, expressLogo, reactLogo, nodejsLogo];

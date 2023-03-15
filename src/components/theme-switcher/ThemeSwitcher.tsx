@@ -5,28 +5,21 @@ import useTheme from "../../hooks/useTheme";
 export type Theme = 'light' | 'dark';
 
 type ThemeSwitcherProps = {
-    themeSwitchAdditionalHandler: (value: Theme) => void
+    themeSwitchAdditionalHandler?: (value: Theme) => void
 };
 
 const ThemeSwitcher = ({themeSwitchAdditionalHandler}: ThemeSwitcherProps): JSX.Element => {
     const [theme, setTheme] = useTheme();
 
     useEffect(() => {
-        if (!theme) localStorage.setItem('theme', 'light');
-        setTheme(theme);
         themeSwitchAdditionalHandler(theme);
-    }, [theme])
+    }, [themeSwitchAdditionalHandler, theme]);
 
     const themeSwitchHandler = (value: Theme) => {
         const themeLink = document.getElementById('app-theme') as HTMLAnchorElement;
-        if (theme === 'light') {
-            setTheme('dark');
-            themeLink.href = 'viva-dark/viva-dark.css';
-        } else if (theme === 'dark') {
-            setTheme('light');
-            themeLink.href = 'viva-light/viva-light.css';
-        }
-        themeSwitchAdditionalHandler(theme);
+        themeLink.href = value === 'dark' ? 'viva-dark/viva-dark.css' : 'viva-light/viva-light.css';
+        setTheme(value);
+        themeSwitchAdditionalHandler(value);
     };
 
     const renderButton = () => {
@@ -35,7 +28,7 @@ const ThemeSwitcher = ({themeSwitchAdditionalHandler}: ThemeSwitcherProps): JSX.
         } else if (theme === 'light') {
             return <Button icon='pi pi-sun' onClick={() => themeSwitchHandler('dark')} rounded raised />
         }
-    }
+    };
 
     return (
         <>
