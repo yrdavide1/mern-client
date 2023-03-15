@@ -16,8 +16,14 @@
     }
 }
 
-.login-container {
-    background: url('../../assets/blob-viva-light.svg');
+.login-container-light {
+    background-image: url('../../assets/blob-viva-light.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-container-dark {
+    background-image: url('../../assets/blob-viva-dark.svg');
     background-repeat: no-repeat;
     background-size: cover;
 }

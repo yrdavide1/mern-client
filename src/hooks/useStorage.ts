@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch } from "react";
 
 function getSavedValue(key: string, initialValue: any) {
     const rememberMe = localStorage.getItem('rememberMe') === 'true';
@@ -11,7 +11,7 @@ function getSavedValue(key: string, initialValue: any) {
     return initialValue;
 }
 
-const useStorage = (key: string, initialValue: any) => {
+const useStorage = (key: string, initialValue: any): [any, Dispatch<any>] => {
     const [value, setValue] = useState(() => {
         return getSavedValue(key, initialValue);
     });

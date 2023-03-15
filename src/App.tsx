@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import 'primereact/resources/themes/viva-dark/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
@@ -10,10 +9,6 @@ import Register from './components/register/Register';
 import Home from './components/home/Home';
 import NotFound from './components/notFound/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
-
-// type AppProps = {
-//   message: string;
-// };
 
 const App = (): JSX.Element => {
   const navigate = useNavigate();

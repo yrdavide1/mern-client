@@ -13,6 +13,7 @@ import useStorage from "../../hooks/useStorage";
 import Typed from "typed.js";
 import toast, { Toaster } from "react-hot-toast";
 import ThemeSwitcher, { Theme } from "../theme-switcher/ThemeSwitcher";
+import useTheme from "../../hooks/useTheme";
 
 const Login = (): JSX.Element => {
     const imgLogoSrcs = [mongodbLogo, expressLogo, reactLogo, nodejsLogo];
@@ -23,6 +24,7 @@ const Login = (): JSX.Element => {
     const [hidePassword, setHidePassword] = useState<boolean | null>(true);
     const [, setUser] = useStorage("user", null);
     const navigate = useNavigate();
+    const [theme, setTheme] = useState<Theme>();
 
     useEffect(() => {
         const typed = new Typed(el.current, {
@@ -98,18 +100,17 @@ const Login = (): JSX.Element => {
         }, 1000);
     };
 
-    const themeSwitchAdditionalHandler = (theme: Theme) => {
-        const container = document.getElementById('login-container');
-        container.style.background = `url('../../assets/blob-viva-${theme}.svg')`;
-        container.style.backgroundRepeat = 'no-repeat';
-        container.style.backgroundSize = 'cover';
+    const themeSwitchAdditionalHandler = (value: Theme) => {
+        setTheme(value);
     };
 
     return (
         <>
-            <div className="w-screen h-screen login-container" id="login-container">
-                <div className="h-1rem w-full"></div>
-                <div className="flex justify-content-end mr-2">
+            <div 
+                id="login-container"
+                className={theme === 'light' ? 'w-screen h-screen login-container-light' : 'w-screen h-screen login-container-dark'}
+            >
+                <div className="flex justify-content-start pl-2 pt-2">
                     <ThemeSwitcher themeSwitchAdditionalHandler={themeSwitchAdditionalHandler} />
                 </div>
                 <div className="h-2rem w-full"></div>
