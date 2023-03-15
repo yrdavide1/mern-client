@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import useStorage from "../../hooks/useStorage";
 import Typed from "typed.js";
 import toast, { Toaster } from "react-hot-toast";
+import ThemeSwitcher, { Theme } from "../theme-switcher/ThemeSwitcher";
 
 const Login = (): JSX.Element => {
     const imgLogoSrcs = [mongodbLogo, expressLogo, reactLogo, nodejsLogo];
@@ -63,7 +64,7 @@ const Login = (): JSX.Element => {
                 if (json.accessToken && response.status === 200) {
                     localStorage.setItem("rememberMe", rememberMe ? "true" : "false");
                     setUser(json);
-                    const containerEl = document.getElementById('container');
+                    const containerEl = document.getElementById('login-container');
                     containerEl.style.animation = 'bgAnimation 1s linear';
                     resolve('Successfully logged in!');
                     setTimeout(() => {
@@ -87,19 +88,30 @@ const Login = (): JSX.Element => {
                 error: (err) => err,
             }
         );
-    }
+    };
 
     const redirectToRegister = () => {
-        const containerEl = document.getElementById('container');
+        const containerEl = document.getElementById('login-container');
         containerEl.style.animation = 'bgAnimation 1s linear';
         setTimeout(() => {
             navigate('/register');
         }, 1000);
     };
 
+    const themeSwitchAdditionalHandler = (theme: Theme) => {
+        const container = document.getElementById('login-container');
+        container.style.background = `url('../../assets/blob-viva-${theme}.svg')`;
+        container.style.backgroundRepeat = 'no-repeat';
+        container.style.backgroundSize = 'cover';
+    };
+
     return (
         <>
-            <div className="w-screen h-screen container" id="container">
+            <div className="w-screen h-screen login-container" id="login-container">
+                <div className="h-1rem w-full"></div>
+                <div className="flex justify-content-end mr-2">
+                    <ThemeSwitcher themeSwitchAdditionalHandler={themeSwitchAdditionalHandler} />
+                </div>
                 <div className="h-2rem w-full"></div>
                 <div className="flex align-items-center justify-content-center logo-container">
                     {imgLogoSrcs.map(l => <img id="logo" className="logo" src={l} key={l} alt="Logo"></img>)}

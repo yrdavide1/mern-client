@@ -16,8 +16,8 @@
     }
 }
 
-.container {
-    background: url('../../assets/blob-viva-dark.svg');
+.login-container {
+    background: url('../../assets/blob-viva-light.svg');
     background-repeat: no-repeat;
     background-size: cover;
 }
