@@ -100,8 +100,29 @@ const Register = (): JSX.Element => {
 
     const register = (): Promise<string> => {
         return new Promise<string>(async (resolve, reject) => {
-            console.log(formFields)
-            resolve('todo');
+            const params = {
+                name: formFields.name,
+                surname: formFields.surname,
+                username: formFields.username,
+                email: formFields.email,
+                password: formFields.password,
+            };
+
+            const response = await fetch('http://localhost:5002/register', {
+                method: 'post',
+                body: JSON.stringify(params),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+            const json = await response.json();
+
+            if (response.status === 200) {
+                resolve('Successful! Redirecting to login...');
+                setTimeout(() => {
+                    navigate('/login');
+                }, 1000);
+            } else reject(json.message);
         });
     };
 

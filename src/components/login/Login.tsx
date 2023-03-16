@@ -27,7 +27,7 @@ const Login = (): JSX.Element => {
 
     useEffect(() => {
         const typed = new Typed(el.current, {
-            strings: ['MERN Client', 'Login'],
+            strings: ['MERN Client', 'Register'],
             typeSpeed: 100,
             showCursor: false,
             fadeOut: true
@@ -67,7 +67,9 @@ const Login = (): JSX.Element => {
                     //     navigate("/home");
                     // }, 1000);
                     resolve('Successfully logged in!');
-                    navigate('home');
+                    setTimeout(() => {
+                        navigate('/home');
+                    }, 200);
                 } else {
                     reject(json.message);
                 }
