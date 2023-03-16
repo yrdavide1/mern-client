@@ -20,7 +20,7 @@ const Login = (): JSX.Element => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [rememberMe, setRememberMe] = useState<boolean>(false);
-    const [hidePassword, setHidePassword] = useState<boolean | null>(true);
+    const [hidePassword, setHidePassword] = useState<boolean>(true);
     const [, setUser] = useStorage("user", null);
     const navigate = useNavigate();
     const [theme, setTheme] = useState<Theme>();
@@ -65,12 +65,13 @@ const Login = (): JSX.Element => {
                 if (json.accessToken && response.status === 200) {
                     localStorage.setItem("rememberMe", rememberMe ? "true" : "false");
                     setUser(json);
-                    const containerEl = document.getElementById('login-container');
-                    containerEl.style.animation = 'bgAnimation 1s linear';
+                    // const containerEl = document.getElementById('login-container');
+                    // containerEl.style.animation = 'bgAnimation 1s linear';
+                    // setTimeout(() => {
+                    //     navigate("/home");
+                    // }, 1000);
                     resolve('Successfully logged in!');
-                    setTimeout(() => {
-                        navigate("/home");
-                    }, 1000);
+                    navigate('home');
                 } else {
                     reject(json.message);
                 }
@@ -92,11 +93,12 @@ const Login = (): JSX.Element => {
     };
 
     const redirectToRegister = () => {
-        const containerEl = document.getElementById('login-container');
-        containerEl.style.animation = 'bgAnimation 1s linear';
-        setTimeout(() => {
-            navigate('/register');
-        }, 1000);
+        // const containerEl = document.getElementById('login-container');
+        // containerEl.style.animation = 'bgAnimation 1s linear';
+        // setTimeout(() => {
+        //     navigate('/register');
+        // }, 1000);
+        navigate('/register');
     };
 
     const themeSwitchAdditionalHandler = (value: Theme) => {
@@ -107,9 +109,13 @@ const Login = (): JSX.Element => {
         <>
             <div 
                 id="login-container"
-                className={theme === 'light' ? 'w-screen h-screen login-container-light' : 'w-screen h-screen login-container-dark'}
+                className={
+                    theme === 'light' 
+                    ? 'w-screen h-screen login-container-light' 
+                    : 'w-screen h-screen login-container-dark'
+                }
             >
-                <div className="flex justify-content-start pl-2 pt-2">
+                <div className="flex justify-content-end pr-2 pt-2">
                     <ThemeSwitcher themeSwitchAdditionalHandler={themeSwitchAdditionalHandler} />
                 </div>
                 <div className="h-2rem w-full"></div>

@@ -12,6 +12,7 @@ import { MenuItem } from "primereact/menuitem";
 import toast, { Toaster } from "react-hot-toast";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import ThemeSwitcher, { Theme } from "../theme-switcher/ThemeSwitcher";
 
 interface IRegisterFormFields {
     name: string,
@@ -24,7 +25,9 @@ interface IRegisterFormFields {
 const Register = (): JSX.Element => {
     const imgLogoSrcs = [mongodbLogo, expressLogo, reactLogo, nodejsLogo];
     const el = useRef(null);
+    const [hidePassword, setHidePassword] = useState<boolean>(true);
     const navigate = useNavigate();
+    const [theme, setTheme] = useState<Theme>();
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const [formFields, setFormFields] = useState<IRegisterFormFields>({
         name: '',
@@ -102,11 +105,12 @@ const Register = (): JSX.Element => {
     };
 
     const redirectToLogin = () => {
-        const containerEl = document.getElementById('container');
-        containerEl.style.animation = 'bgAnimation 1s linear';
-        setTimeout(() => {
-            navigate('/login');
-        }, 1000);
+        // const containerEl = document.getElementById('container');
+        // containerEl.style.animation = 'bgAnimation 1s linear';
+        // setTimeout(() => {
+        //     navigate('/login');
+        // }, 1000);
+        navigate('/login');
     };
 
     const renderFormStep = () => {
@@ -164,6 +168,10 @@ const Register = (): JSX.Element => {
         }
     };
 
+    const themeSwitchAdditionalHandler = (value: Theme) => {
+        setTheme(value);
+    };
+
     return (
         <>
             <Toaster
@@ -175,7 +183,17 @@ const Register = (): JSX.Element => {
                     }
                 }}  
             />
-            <div className="w-screen h-screen container" id="container">
+            <div 
+                id="register-container"
+                className={
+                    theme === 'light'
+                    ? 'w-screen h-screen register-container-light' 
+                    : 'w-screen h-screen register-container-dark'
+                }
+            >
+                <div className="flex justify-content-end pr-2 pt-2">
+                    <ThemeSwitcher themeSwitchAdditionalHandler={themeSwitchAdditionalHandler} />
+                </div>
                 <div className="h-2rem w-full"></div>
                 <div className="flex align-items-center justify-content-center logo-container">
                     {imgLogoSrcs.map(l => <img id="logo" className="logo" src={l} key={l} alt="Logo"></img>)}

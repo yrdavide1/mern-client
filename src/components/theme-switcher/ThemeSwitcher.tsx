@@ -24,9 +24,9 @@ const ThemeSwitcher = ({themeSwitchAdditionalHandler}: ThemeSwitcherProps): JSX.
 
     const renderButton = () => {
         if (theme === 'dark') {
-            return <Button icon='pi pi-moon' onClick={() => themeSwitchHandler('light')} rounded raised />;
+            return <Button severity="secondary" icon='pi pi-moon' onClick={() => themeSwitchHandler('light')} rounded raised />;
         } else if (theme === 'light') {
-            return <Button icon='pi pi-sun' onClick={() => themeSwitchHandler('dark')} rounded raised />
+            return <Button severity="secondary" icon='pi pi-sun' onClick={() => themeSwitchHandler('dark')} rounded raised />
         }
     };
 
