@@ -13,6 +13,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import ThemeSwitcher, { Theme } from "../theme-switcher/ThemeSwitcher";
+import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
 
 interface IRegisterFormFields {
     name: string,
@@ -47,7 +48,7 @@ const Register = (): JSX.Element => {
 
     useEffect(() => {
         const typed = new Typed(el.current, {
-            strings: ['MERN Practice', 'REGISTER'],
+            strings: ['MERN Client', 'Login'],
             typeSpeed: 100,
             showCursor: false,
             fadeOut: true
@@ -129,9 +130,23 @@ const Register = (): JSX.Element => {
                         <label htmlFor="password">Password</label>
                         <InputText
                             id="password"
+                            autoComplete="new-password"
                             value={formFields.password}
+                            type={hidePassword ? 'password' : 'text'}
                             onChange={(e) => setFormFields({...formFields, password: e.target.value})}
                         />
+                    </div>
+                    <div className="flex align-items-center col-12">
+                        <Checkbox
+                            inputId="showPassword"
+                            checked={!hidePassword}
+                            onChange={(e: CheckboxChangeEvent) => {
+                                setHidePassword(!e.checked!);
+                            }}
+                        ></Checkbox>
+                        <label htmlFor="showPassword" className="ml-2">
+                            Show password
+                        </label>
                     </div>
                 </>
             );

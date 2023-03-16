@@ -27,7 +27,7 @@ const Login = (): JSX.Element => {
 
     useEffect(() => {
         const typed = new Typed(el.current, {
-            strings: ['MERN Practice', 'LOGIN ^1500'],
+            strings: ['MERN Client', 'Login'],
             typeSpeed: 100,
             showCursor: false,
             fadeOut: true
@@ -37,10 +37,6 @@ const Login = (): JSX.Element => {
             typed.destroy();
         }
     }, []);
-
-    const hidePasswordHandler = (): void => {
-        setHidePassword(!hidePassword);
-    };
 
     const formSubmitHandler = (e: FormEvent): Promise<string> => {
         return new Promise<string>(async (resolve, reject) => {
@@ -76,7 +72,7 @@ const Login = (): JSX.Element => {
                     reject(json.message);
                 }
             } else {
-                reject('Both fields are required!');
+                reject('Invalid form!');
             }
         })
     };
@@ -144,25 +140,25 @@ const Login = (): JSX.Element => {
                             </div>
                             <div className="flex flex-column gap-2 mt-3">
                                 <label htmlFor="password">Password</label>
-                                <div className="flex">
-                                    <span className="p-input-icon-right">
-                                        <i
-                                            className={
-                                                hidePassword
-                                                    ? "pi pi-eye cursor-pointer"
-                                                    : "pi pi-eye-slash cursor-pointer"
-                                            }
-                                            onClick={hidePasswordHandler}
-                                        />
-                                        <InputText
-                                            autoComplete="current-password"
-                                            id="password"
-                                            type={hidePassword ? "password" : "text"}
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                        />
-                                    </span>
-                                </div>
+                                <InputText
+                                    id="password"
+                                    autoComplete="current-password"
+                                    value={password}
+                                    type={hidePassword ? 'password' : 'text'}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                            <div className="flex align-items-center mt-3">
+                                <Checkbox
+                                    inputId="showPassword"
+                                    checked={!hidePassword}
+                                    onChange={(e: CheckboxChangeEvent) => {
+                                        setHidePassword(!e.checked!);
+                                    }}
+                                ></Checkbox>
+                                <label htmlFor="showPassword" className="ml-2">
+                                    Show password
+                                </label>
                             </div>
                             <div className="flex align-items-center mt-3">
                                 <Checkbox
