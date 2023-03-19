@@ -32,9 +32,7 @@ const ThemeSwitcher = ({themeSwitchAdditionalHandler}: ThemeSwitcherProps): JSX.
 
     return (
         <>
-            <div className="flex">
-                {renderButton()}                
-            </div>
+            {renderButton()}
         </>
     );
 };

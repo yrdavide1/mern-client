@@ -27,7 +27,7 @@ const Login = (): JSX.Element => {
 
     useEffect(() => {
         const typed = new Typed(el.current, {
-            strings: ['MERN Client', 'Register'],
+            strings: ['MERN Client', 'Login'],
             typeSpeed: 100,
             showCursor: false,
             fadeOut: true

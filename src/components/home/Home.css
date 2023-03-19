@@ -1,0 +1,30 @@
+.welcome-back {
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+
+.action-button {
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    background-position: center;
+    transition: background 0.8s;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+.action-button:hover {
+    background: var(--primary-color-lightened) radial-gradient(circle, transparent 1%, var(--primary-color-lightened) 1%) center/15000%;
+}
+.action-button:active {
+    background-color: var(--primary-color); 
+    background-size: 100%;
+    transition: background 0s;
+}
+.action-button:not(:first-child) {
+    visibility: hidden;
+}
