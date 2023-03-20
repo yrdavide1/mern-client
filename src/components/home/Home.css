@@ -28,3 +28,7 @@
 .action-button:not(:first-child) {
     visibility: hidden;
 }
+
+#arrow-down-path {
+    fill: var(--surface-900);
+}
